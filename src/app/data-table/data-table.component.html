@@ -35,12 +35,12 @@
       <select
         id="countries"
         class="ml-2 outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        #pageSize
+        (change)="changePageSize(pageSize.value)"
       >
-        <option selected>Choose</option>
-        <option value="US">United States</option>
-        <option value="CA">Canada</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
+        <option *ngFor="let size of pageSizes" value="{{ size }}">
+          {{ size }}
+        </option>
       </select>
     </form>
   </div>
@@ -73,6 +73,8 @@
     <button
       class="text-cyan-500 border-4 px-4 py-2 rounded-l-lg cursor-pointer mr-5"
       (click)="previousPage()"
+      [ngClass]="{ 'cursor-not-allowed': currentPage <= 1 }"
+      [disabled]="currentPage <= 1"
     >
       Previous
     </button>
@@ -88,6 +90,8 @@
     <button
       class="text-cyan-500 border-4 py-2 px-4 cursor-pointer rounded-r-lg ml-5"
       (click)="nextPage()"
+      [ngClass]="{ 'cursor-not-allowed': currentPage >= pageNumbers().length }"
+      [disabled]="currentPage >= pageNumbers().length"
     >
       Next
     </button>

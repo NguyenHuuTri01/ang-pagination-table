@@ -41,7 +41,8 @@ export class DataTableComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 5;
 
-  filteredSupplier: Array<Supplier> = this.suppliers
+  filteredSupplier: Array<Supplier> = this.suppliers;
+  pageSizes: Array<number> = [5, 10, 20]
 
   ngOnInit(): void {
     this.visibleData();
@@ -81,6 +82,12 @@ export class DataTableComponent implements OnInit {
         return val.toLowerCase().includes(searchTerm.toLowerCase())
       })
     })
+    this.visibleData();
+  }
+
+  changePageSize(pageSize: any) {
+    this.pageSize = pageSize;
+    this.visibleData();
   }
 
 }
